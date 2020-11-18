@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Account:
     id: int
@@ -7,7 +8,7 @@ class Account:
     status: bool
     balance: float
 
-    def seedMoney(self, amount:int):
+    def seedMoney(self, amount: int):
         self.balance += amount
 
     def withdraw(self, amount: float):
@@ -22,6 +23,7 @@ class Account:
         self.balance += amount
         return True
 
+
 @dataclass
 class Transaction:
     id: int
@@ -34,9 +36,10 @@ class Transaction:
     def abort(self):
         pass
 
+
 @dataclass
 class Logger:
     id: int
+
     def log(self, transaction: Transaction):
         return True
-

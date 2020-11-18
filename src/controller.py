@@ -8,7 +8,6 @@ from model import *
 from view import View
 
 
-
 class Controller:
     def __init__(self) -> None:
         self.__model: Model = Model()
@@ -32,3 +31,11 @@ class Controller:
     def seed_money_to_account(self, admin: Admin, account: Account, money: float):
         admin.make_a_seed_transaction(account, money)
         self.__view.print(f'Admin seeded money to account id: \'{account.id}\' amount: {money}')
+
+    def create_transaction(self, user: User, own_account: Account, destination_account: Account, money: float) -> Transaction:
+        # todo Create Transaction with source and destination accounts
+
+        pass
+
+
+

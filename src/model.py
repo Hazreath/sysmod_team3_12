@@ -5,15 +5,20 @@
 """
 from __future__ import annotations
 
+from typing import List
+
 import tools
 
 
 class Transaction:
 
-    def __init__(self, id: int, amount: float, operation: str) -> None:
-        self.__id = id
+    def __init__(self, id: int, amount: float, user: User, source_account: Account, dest_account: Account) -> None:
+        self.__id = tools.generate_random_int()
         self.__amount = amount
-        self.__operation = operation
+        self.__user = user
+        self.__source_account = source_account
+        # todo continue transaction mechanism
+        # self.__operation = operation
 
     def validate(self):
         pass
@@ -26,6 +31,11 @@ class Transaction:
 Class user is a parent class for both customer (normal user of bank services) and admin (user with extended privileges)
 '''
 
+"""
+Class Account can have only one user by definition, but admins can do whatever with any account,
+Any user can have many accounts
+"""
+
 
 class Account:
 
@@ -34,21 +44,23 @@ class Account:
         self.__user = user
         self.__status = status
         self.__balance = balance
+        # each user know account he have
+        self.__user.add_account(self)
 
     @property
-    def id(self):
+    def id(self) -> int:
         return self.__id
 
     @property
-    def name(self):
+    def user(self) -> User:
         return self.__user
 
     @property
-    def status(self):
+    def status(self) -> bool:
         return self.__status
 
     @property
-    def balance(self):
+    def balance(self) -> float:
         return self.__balance
 
     def send_money(self):
@@ -60,12 +72,17 @@ class Account:
     def deposit_money(self, money: float):
         self.__balance += money
 
+    def __repr__(self) -> str:
+        return f'account id: {self.__id} owner: {self.__user.name} balance: {self.__balance}'
+
 
 class User:
 
     def __init__(self, name: str) -> None:
         self.__id = tools.generate_random_int()
         self.__name = name
+        # todo Add lists
+        self.__accounts: List[Account] = []
 
     @property
     def name(self):
@@ -76,6 +93,12 @@ class User:
 
     def modify_transaction(self):
         pass
+
+    def add_account(self, account: Account):
+        self.__accounts.append(account)
+
+    def __repr__(self) -> str:
+        return f'user: {self.__name}, accounts: {len(self.__accounts)}'
 
 
 class Customer(User):
