@@ -56,6 +56,7 @@ def undo_trans(id):
     Undo transaction with arguments: id.
     Example:  python konsole.py undo-trans 123
     """
+    #TODO: undo transaction in model
 
 if __name__ == '__main__':
     cli()
