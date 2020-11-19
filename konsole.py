@@ -82,13 +82,14 @@ def create_transaction(author, receiver, amount):
 
 
 @cli.command(name='undo-trans')
-@click.argument('id')
+@click.argument('id',type = str)
 def undo_trans(id):
     """
     Undo transaction with arguments: id.
     Example:  python konsole.py undo-trans 123
     """
-    Transaction.undo(id)
+    pass
+    # Transaction.undo(id)
 
 if __name__ == '__main__':
     cli()
