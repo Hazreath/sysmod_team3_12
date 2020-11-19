@@ -1,5 +1,4 @@
 import click
-from src.model import *
 from dataclasses import dataclass
 
 @dataclass
@@ -10,7 +9,6 @@ class CreateAccount:
     email: str
     password: str
     isAdmin: bool = False
-W
 
 @click.group()
 def cli():
@@ -29,12 +27,13 @@ def create_account(email, password):
     """
     if click.confirm('is it an admin account?'):
         _account = CreateAccount(email,password,True)
+        click.echo(f"Admin user with {email} was created succesfully.")
     else:
         _account = CreateAccount(email,password) 
-    
+        click.echo(f"User with {email} was created succesfully.")
     # TODO:  Integrate with model
     
-    click.echo(f"User with {email} was created succesfully.")
+    
 
 
 @cli.command(name='create-trans')
