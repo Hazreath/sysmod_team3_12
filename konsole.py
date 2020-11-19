@@ -1,8 +1,8 @@
 import click
-from src.model import *
-import dataclasses
+# from src.model import *
+from dataclasses import dataclass
 
-@dataclasses
+@dataclass
 class CreateAccount:
     """
     Dataclass for creating account with account email, password and isAdmin attributes
