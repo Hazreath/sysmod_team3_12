@@ -1,5 +1,15 @@
 import click
-from src.model import User, Account, Transaction, Admin
+from src.model import *
+import dataclasses
+
+@dataclasses
+class CreateAccount:
+    """
+    Dataclass for creating account with account email, password and isAdmin attributes
+    """
+    email: str
+    password: str
+    isAdmin: bool = False
 
 
 @click.group()
@@ -17,6 +27,13 @@ def create_account(email, password):
     Create account with arguments: email, password.\n
     Example: python konsole.py create-account example@company.com example password123
     """
+    if click.confirm('is it an admin account?'):
+        _account = CreateAccount(email,password,True)
+    else:
+        _account = CreateAccount(email,password) 
+    
+    # TODO:  Integrate with model
+    
     click.echo(f"User with {email} was created succesfully.")
 
 
