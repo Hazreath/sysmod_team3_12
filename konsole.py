@@ -1,5 +1,5 @@
 import click
-# from src.model import *
+from src.model import *
 from dataclasses import dataclass
 
 @dataclass
@@ -10,7 +10,7 @@ class CreateAccount:
     email: str
     password: str
     isAdmin: bool = False
-
+W
 
 @click.group()
 def cli():
