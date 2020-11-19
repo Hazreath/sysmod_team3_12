@@ -1,4 +1,6 @@
 import click
+from src.model import User, Account, Transaction, Admin
+
 
 @click.group()
 def cli():
@@ -19,13 +21,13 @@ def create_account(email, password):
 
 
 @cli.command(name='create-trans')
-@click.argument('author')
+@click.argument('author',)
 @click.argument('receiver')
 @click.argument('amount')
 def create_transaction(author,receiver,amount):
     """
     Create transaction with arguments: author, receiver,amount.\n
-    Example: 
+    Example: python konsole.py create-trans author-mail receiver-mail 1234
     """
     click.echo(f"User with author:{author} was created succesfully.")
 
