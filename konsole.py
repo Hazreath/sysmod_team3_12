@@ -37,14 +37,15 @@ def create_account(email, password):
 
 
 @cli.command(name='create-trans')
-@click.argument('author',)
-@click.argument('receiver')
-@click.argument('amount')
+@click.argument('author',type=str)
+@click.argument('receiver',type=str)
+@click.argument('amount',type=str)#will get from user as string but need to be an int
 def create_transaction(author,receiver,amount):
     """
     Create transaction with arguments: author, receiver,amount.\n
-    Example: python konsole.py create-trans author-mail receiver-mail 1234
+    Example: python konsole.py create-trans author@mail.com receiver@mailcom 1234
     """
+    #TODO: Validate amount
     click.echo(f"User with author:{author} was created succesfully.")
 
 
@@ -53,7 +54,7 @@ def create_transaction(author,receiver,amount):
 def undo_trans(id):
     """
     Undo transaction with arguments: id.
-    Example: 
+    Example:  python konsole.py undo-trans 123
     """
 
 if __name__ == '__main__':
