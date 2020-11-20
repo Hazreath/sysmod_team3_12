@@ -32,6 +32,10 @@ class Transaction:
         self.__admin: Admin
 
     @property
+    def user(self):
+        return self.__user
+
+    @property
     def source_account(self):
         return self.__source_account
 
@@ -90,7 +94,7 @@ class Transaction:
                f' {transaction_verification_status} {transaction_completion_status}'
 
 
-class TransactionPool:
+class TransactionDataBase:
     """
     This class can only be created as single object (may be substitute with singleton)
     and is only used by model
@@ -101,6 +105,24 @@ class TransactionPool:
 
     def add_transaction(self, transaction: Transaction):
         self.__pool.append(transaction)
+
+
+class UserDataBase:
+
+    def __init__(self) -> None:
+        self.__user_data_base: List[User] = []
+
+    def add_user(self, user: User):
+        self.__user_data_base.append(user)
+
+
+class AccountDataBase:
+
+    def __init__(self) -> None:
+        self.__account_data_base: List[Account] = []
+
+    def add_account(self, account: Account):
+        self.__account_data_base.append(account)
 
 
 '''
@@ -201,11 +223,6 @@ class Admin(User):
     def deny_transaction(self):
         pass
 
-    def create_account(self, user: User, status: bool, balance: float) -> Account:
-        # def __init__(self, user: User, status: bool, balance: float) -> None:
-        account = Account(user, status, balance)
-        return account
-
     # not sure what is it
     def make_a_seed_transaction(self, account: Account, money: float):
         account.deposit_money(money)
@@ -218,13 +235,21 @@ class Logger:
 class Model:
     def __init__(self) -> None:
         # model have transaction pool, object that contains transactions
-        self.__transaction_pool = TransactionPool()
+        self.__transaction_data_base = TransactionDataBase()
+        self.__user_data_base = UserDataBase()
+        self.__account_data_base = AccountDataBase()
+
+        # model have logger
 
     def create_admin(self, name: str) -> Admin:
-        return Admin(name)
+        admin = Admin(name)
+        self.__user_data_base.add_user(admin)
+        return admin
 
     def create_customer(self, name: str) -> Customer:
-        return Customer(name)
+        customer = Customer(name)
+        self.__user_data_base.add_user(customer)
+        return customer
 
     def create_transaction(self, user: User, own_account: Account, destination_account: Account,
                            money: float) -> Transaction:
@@ -241,7 +266,7 @@ class Model:
         # а также должен быть статус проведена ли транзакция
 
         transaction = Transaction(user, own_account, destination_account, money)
-        self.__transaction_pool.add_transaction(transaction)
+        self.__transaction_data_base.add_transaction(transaction)
 
         return transaction
 
@@ -269,3 +294,26 @@ class Model:
             transaction.dest_account.deposit_money(amount)
 
         transaction.accomplish(admin)
+
+    def modify_transaction(self, user: User, transaction: Transaction, source_account: Account, dest_account: Account,
+                           amount: float):
+        """
+        # conditions to modify transaction: 1. transaction belongs to user 2. source account belongs to user
+        :param user:
+        :param transaction:
+        :param source_account:
+        :param dest_account:
+        :param amount:
+        :return:
+        """
+
+        transaction_user = transaction.user
+        account_user = source_account.user
+
+        if not (user == transaction_user and user == account_user):
+            raise tools.TransactionCantBeModified(
+                'Your transaction dos not belong to user or source account does not belong')
+
+    def create_account(self, admin: Admin, user: User, status: bool, balance: float) -> Account:
+        account = Account(user, status, balance)
+        return account

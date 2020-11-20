@@ -19,16 +19,21 @@ if __name__ == '__main__':
     # create transaction means user have someone's account and transfer money from
     # his account to someone's else account
     # controller.create_transaction(account owner, source acc, dest acc, amount)
-    transaction = controller.create_transaction(customer, account_1, account_2, 200.0)
+    transaction_1 = controller.create_transaction(customer, account_1, account_2, 200.0)
 
     # admin can check account validity
-    controller.check_transaction_validity(admin, transaction)
+    controller.check_transaction_validity(admin, transaction_1)
     # admin can complete transaction, only if transaction is already verified, but any completion will
     # have make additional prior verification
-    controller.complete_transaction(admin, transaction)
+    controller.complete_transaction(admin, transaction_1)
+
+    # user is allowed to modify his transaction
+    transaction_2 = controller.create_transaction(customer, account_1, account_2, 300.0)
+    controller.modify_transaction(customer, transaction_2, account_1, account_2, 350.0)
 
     # transaction logged
 
+
     # check user
-    print(customer)
+    # print(customer)
     # transaction means

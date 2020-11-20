@@ -18,3 +18,9 @@ def get_time() -> str:
 
 class TransactionAccomplishedError(Exception):
     pass
+
+
+class TransactionCantBeModified(Exception):
+
+    def __init__(self, message) -> None:
+        self.message = message

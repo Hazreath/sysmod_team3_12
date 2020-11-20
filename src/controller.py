@@ -24,7 +24,7 @@ class Controller:
         return customer
 
     def create_account(self, admin: Admin, user: User, status: bool, balance: float) -> Account:
-        account = admin.create_account(user, status, balance)
+        account = self.__model.create_account(admin, user, status, balance)
         self.__view.print(f'Account id: \'{account.id}\' created')
         return account
 
@@ -58,3 +58,19 @@ class Controller:
 
         self.__model.complete_transaction(admin, transaction)
         self.__view.print(f'transaction completion is attempted: \'{transaction}\' \n by {admin.name} ')
+
+    def modify_transaction(self, user: User, transaction: Transaction, source_account: Account, dest_account: Account,
+                           amount: float):
+        """
+        Each of users are only allowed to modify his own transaction, only using his accounts as
+        source account
+        :param customer:
+        :param transaction_2:
+        :param account_1:
+        :param account_2:
+        :param param:
+        :return:
+        """
+
+        self.__model.modify_transaction(user, transaction, source_account, dest_account, amount)
+        self.__view.print(f'transaction modified: \'{transaction}\' \n by {user.name} ')
