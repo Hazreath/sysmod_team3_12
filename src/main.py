@@ -16,9 +16,19 @@ if __name__ == '__main__':
     print(account_1)
     # user log in, create transaction, make transaction, transaction is is validated by admin, transaction is logged
 
-    # create transaction means user have some account and transfer money from
-    # his account to someone's account
-    controller.create_transaction(customer, account_1, account_2, 200.0)
+    # create transaction means user have someone's account and transfer money from
+    # his account to someone's else account
+    # controller.create_transaction(account owner, source acc, dest acc, amount)
+    transaction = controller.create_transaction(customer, account_1, account_2, 200.0)
+
+    # admin can check account validity
+    controller.check_transaction_validity(admin, transaction)
+    # admin can complete transaction, only if transaction is already verified, but any completion will
+    # have make additional prior verification
+    controller.complete_transaction(admin, transaction)
+
+    # transaction logged
+
     # check user
     print(customer)
     # transaction means

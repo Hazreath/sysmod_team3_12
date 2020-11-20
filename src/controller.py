@@ -32,10 +32,29 @@ class Controller:
         admin.make_a_seed_transaction(account, money)
         self.__view.print(f'Admin seeded money to account id: \'{account.id}\' amount: {money}')
 
-    def create_transaction(self, user: User, own_account: Account, destination_account: Account, money: float) -> Transaction:
-        # todo Create Transaction with source and destination accounts
+    def create_transaction(self, user: User, own_account: Account, destination_account: Account,
+                           money: float) -> Transaction:
+        transaction = self.__model.create_transaction(user, own_account, destination_account, money)
+        self.__view.print(f'transaction is created: \'{transaction}\' \n by {user.name} ')
+        return transaction
 
-        pass
+    def check_transaction_validity(self, admin: Admin, transaction: Transaction):
+        """
+        Transaction is verified by admin and status is assigned
+        :param admin:
+        :param transaction:
+        :return:
+        """
+        self.__model.check_transaction_validity(admin, transaction)
+        self.__view.print(f'transaction validity is checked: \'{transaction}\' \n by {admin.name} ')
 
+    def complete_transaction(self, admin: Admin, transaction: Transaction):
+        """
+        Transaction is again verified prior to completion
+        :param admin:
+        :param transaction:
+        :return:
+        """
 
-
+        self.__model.complete_transaction(admin, transaction)
+        self.__view.print(f'transaction completion is attempted: \'{transaction}\' \n by {admin.name} ')

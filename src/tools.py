@@ -14,3 +14,7 @@ def get_time() -> str:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     return current_time
+
+
+class TransactionAccomplishedError(Exception):
+    pass
