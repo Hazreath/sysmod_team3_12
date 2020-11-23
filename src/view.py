@@ -4,7 +4,7 @@
 @author: Yauheni
 """
 
-import tools
+from src.tools import get_time
 
 
 class View:
@@ -12,4 +12,4 @@ class View:
         pass
 
     def print(self, message: str):
-        print(f'view: {message} at: {tools.get_time()}')
+        print(f'view: {message} at: {get_time()}')
