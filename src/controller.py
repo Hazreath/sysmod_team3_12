@@ -4,8 +4,8 @@
 @author: Yauheni
 """
 
-from model import *
-from view import View
+from src.model import *
+from src.view import View
 
 
 class Controller:
