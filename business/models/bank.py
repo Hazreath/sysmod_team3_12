@@ -1,13 +1,13 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
-@dataclass
-class Account:
+
+class Account(BaseModel):
     id: int
-    name: str
-    status: bool
+    # name: str
+    # status: bool
     balance: float
 
-    def seedMoney(self, amount:int):
+    def seedMoney(self, amount: int):
         self.balance += amount
 
     def withdraw(self, amount: float):
@@ -22,21 +22,21 @@ class Account:
         self.balance += amount
         return True
 
-@dataclass
-class Transaction:
+
+class Transaction(BaseModel):
     id: int
     amount: float
     operation: str
 
-    def validate(self):
+    def custom_validate(self):
         pass
 
     def abort(self):
         pass
 
-@dataclass
-class Logger:
+
+class Logger():
+
     id: int
     def log(self, transaction: Transaction):
         return True
-
