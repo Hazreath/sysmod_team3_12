@@ -1,42 +1,19 @@
 from pydantic import BaseModel
 
+from business.models.user import User
+
 
 class Account(BaseModel):
     id: int
-    # name: str
-    # status: bool
+    name: str
+    status: bool
     balance: float
 
-    def seedMoney(self, amount: int):
-        self.balance += amount
-
-    def withdraw(self, amount: float):
-        if self.balance < amount:
-            return False
-        self.balance -= amount
-        return True
-
-    def deposit(self, amount: float):
-        if self.balance < amount:
-            return False
-        self.balance += amount
-        return True
+    user: User
 
 
 class Transaction(BaseModel):
     id: int
+    source_account: Account
+    dest_account: Account
     amount: float
-    operation: str
-
-    def custom_validate(self):
-        pass
-
-    def abort(self):
-        pass
-
-
-class Logger():
-
-    id: int
-    def log(self, transaction: Transaction):
-        return True
