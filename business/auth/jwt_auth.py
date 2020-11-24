@@ -5,7 +5,7 @@ from jose import jwt, JWTError
 from business.auth.authenticate_users import Auth, JwtConfig
 from business.models.token import TokenData
 from business.models.user import User
-from sql_app.repository import UserRepository
+from sql_app.user_repository import UserRepository
 
 
 class JwtAuth(Auth):

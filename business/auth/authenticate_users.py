@@ -5,7 +5,7 @@ from attr import dataclass
 from sqlalchemy.orm import Session
 
 from business.models.user import User
-from sql_app.repository import UserRepository
+from sql_app.user_repository import UserRepository
 
 
 @dataclass(frozen=True)

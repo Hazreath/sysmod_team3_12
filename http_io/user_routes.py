@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from business.models import user
 from business.models.user import User
 from main import app, get_db, get_current_active_user
-from sql_app.repository import UserRepository
+from sql_app.user_repository import UserRepository
 
 
 @app.post("/users/", response_model=user.User)

@@ -2,14 +2,18 @@ from sqlalchemy.orm import Session
 
 from . import models
 from business.models import user
+from .base_repository import BaseRepository
 
-class UserRepository:
+
+class UserRepository(BaseRepository):
+    class Meta:
+        model = models.User
+
     def __init__(self, db: Session):
-        self.db = db
+        super().__init__(db, models.User)
 
-    def get_by_id(self, user_id: int):
-        return self.db.query(models.User).filter(models.User.id == user_id).first()
-
+    # def get_by_id(self, user_id: int):
+    #     return self.db.query(models.User).filter(models.User.id == user_id).first()
 
     def get_by_email(self, email: str):
         return self.db.query(models.User).filter(models.User.email == email).first()

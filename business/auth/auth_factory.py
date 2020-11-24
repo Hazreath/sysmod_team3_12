@@ -1,6 +1,6 @@
 from business.auth.authenticate_users import JwtConfig, Auth
 from business.auth.jwt_auth import JwtAuth
-from sql_app.repository import UserRepository
+from sql_app.user_repository import UserRepository
 
 
 jwt_config = JwtConfig(
