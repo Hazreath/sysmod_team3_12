@@ -2,7 +2,8 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Depends, status
 
-from business.auth.authenticate_users import JwtAuth
+from business.auth.auth_factory import auth_factory
+from business.auth.jwt_auth import JwtAuth
 from business.models.token import TokenData
 from business.models.user import User
 from sql_app import models
@@ -45,7 +46,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    user = JwtAuth(user_repository).get_user_from_token(token)
+    user = auth_factory(user_repository).get_user_from_token(token)
 
     if user is None:
         raise credentials_exception
