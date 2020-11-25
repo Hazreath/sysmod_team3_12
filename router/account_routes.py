@@ -19,8 +19,6 @@ def get_account(current_user: User = Depends(get_current_active_user), db: Sessi
 
     account = account_repository.get_by_user_id(current_user.id)
 
-    print(account)
-
     return account
 
 

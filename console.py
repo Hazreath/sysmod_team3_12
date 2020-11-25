@@ -3,8 +3,11 @@ import click
 from business.models.bank import TransactionCreateInput
 from sql_app.account_repository import AccountRepository
 from sql_app.database import SessionLocal
+from sql_app.models import Transaction
 from sql_app.transaction_repository import TransactionRepository
 from sql_app.user_repository import UserRepository
+
+db = SessionLocal()
 
 
 @click.command(name='create-trans')
@@ -20,12 +23,25 @@ def create_transaction(author, receiver, amount):
     # _transaction = Transaction("def", author, receiver, amount)
     click.echo(f"Transaction was created successfully.")
 
+
+@click.command(name='undo_transaction')
+@click.argument('id', type=int)
+def undo_transaction(id):
+    transaction_repository = TransactionRepository(db)
+    transaction: Transaction = transaction_repository.undo_transaction_by_id(id)
+
+    if transaction is None:
+        click.echo('transaction not found')
+        return
+
+    click.echo('transaction undo')
+
+
 @click.command(name='create_seed_transaction')
 @click.argument('receiver', type=int)
 @click.argument('amount', type=float)
 def create_seed_transaction(receiver, amount):
     transaction = TransactionCreateInput(dest_account_email=receiver, amount=amount)
-    db = SessionLocal()
 
     transaction_repository = TransactionRepository(db)
     account_repository = AccountRepository(db)
@@ -43,4 +59,5 @@ def create_seed_transaction(receiver, amount):
     click.echo(f'Transaction created {account} {account.balance}')
 
 if __name__ == "__main__":
-    create_seed_transaction()
+    undo_transaction()
+    # create_seed_transaction()

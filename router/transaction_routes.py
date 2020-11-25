@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import Depends, HTTPException
 from fastapi import APIRouter
 from sqlalchemy.orm import Session
@@ -19,6 +21,16 @@ def validate_transaction(source_account: Account, transaction: TransactionCreate
         raise Exception('not enough money')
 
 
+@router.get('/transaction', response_model=List[Transaction])
+def get_user_transactions(current_user: User = Depends(get_current_active_user), db: Session = Depends(get_db)):
+    transaction_repository = TransactionRepository(db)
+    transactions = transaction_repository.get_user_transactions(current_user)
+
+    print(f'transactions = {transactions}')
+
+    return transactions
+
+
 @router.post('/transaction', response_model=Transaction)
 def create_transaction(transaction: TransactionCreateInput, current_user: User = Depends(get_current_active_user), db: Session = Depends(get_db)):
     transaction_exception = HTTPException(
@@ -35,8 +47,6 @@ def create_transaction(transaction: TransactionCreateInput, current_user: User =
     transaction_repository = TransactionRepository(db)
 
     source_account = account_repository.get_by_user_id(current_user.id)
-
-
 
     # 1) check if the User account balance has enough money
     try:

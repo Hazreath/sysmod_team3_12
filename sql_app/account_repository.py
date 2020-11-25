@@ -19,5 +19,4 @@ class AccountRepository(BaseRepository):
         return self.db.query(self.model).filter(self.model.user_id == user_id).first()
 
     def get_by_user_email(self, email: str) -> Account:
-        print(f'user: {self.model.user}')
         return self.db.query(self.model).join(User).filter(User.email == email).first()
