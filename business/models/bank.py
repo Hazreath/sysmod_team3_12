@@ -14,6 +14,7 @@ class Account(BaseModel):
 
 class Transaction(BaseModel):
     id: int
+    amount: float
+
     source_account: Account
     dest_account: Account
-    amount: float

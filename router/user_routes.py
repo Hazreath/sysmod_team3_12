@@ -5,11 +5,15 @@ from sqlalchemy.orm import Session
 
 from business.models import user
 from business.models.user import User
-from main import app, get_db, get_current_active_user
+from middleware.get_current_user import get_current_active_user
+from sql_app.get_db import get_db
 from sql_app.user_repository import UserRepository
 
+from fastapi import APIRouter
+router = APIRouter()
 
-@app.post("/users/", response_model=user.User)
+
+@router.post("/users/", response_model=user.User)
 def create_user(user: user.UserCreate, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 
@@ -21,15 +25,16 @@ def create_user(user: user.UserCreate, db: Session = Depends(get_db)):
     return user_repository.create_user(user=user)
 
 
-@app.get("/users/", response_model=List[user.User])
+@router.get("/users/", response_model=List[user.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 
-    users = user_repository.get_users(skip=skip, limit=limit)
+    users = user_repository.get_list(skip=skip, limit=limit)
+
     return users
 
 
-@app.get("/users/{user_id}", response_model=user.User)
+@router.get("/users/{user_id}", response_model=user.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 
@@ -41,6 +46,6 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.get("/users/me/", response_model=User)
+@router.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user

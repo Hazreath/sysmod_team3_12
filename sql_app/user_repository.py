@@ -6,21 +6,9 @@ from .base_repository import BaseRepository
 
 
 class UserRepository(BaseRepository):
-    class Meta:
-        model = models.User
 
     def __init__(self, db: Session):
         super().__init__(db, models.User)
-
-    # def get_by_id(self, user_id: int):
-    #     return self.db.query(models.User).filter(models.User.id == user_id).first()
-
-    def get_by_email(self, email: str):
-        return self.db.query(models.User).filter(models.User.email == email).first()
-
-
-    def get_users(self, skip: int = 0, limit: int = 100):
-        return self.db.query(models.User).offset(skip).limit(limit).all()
 
 
     def create_user(self, user: user.UserCreate):
@@ -34,7 +22,7 @@ class UserRepository(BaseRepository):
 
         return db_user
 
-#
+
 # def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
 #     db_item = models.Item(**item.dict(), owner_id=user_id)
 #     db.add(db_item)

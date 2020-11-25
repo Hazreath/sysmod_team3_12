@@ -1,9 +1,7 @@
 from datetime import timedelta, datetime
 from typing import Optional
-
 from jose import jwt
-
-from main import SECRET_KEY, ALGORITHM
+from business.auth.auth_factory import jwt_config
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
@@ -15,6 +13,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + timedelta(minutes=15)
 
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, jwt_config.SECRET_KEY, algorithm=jwt_config.ALGORITHM)
 
     return encoded_jwt
