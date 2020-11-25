@@ -12,10 +12,12 @@ app = FastAPI()
 """
 Import routes
 """
-from router import user_routes, token_routes
+from router import user_routes, token_routes, account_routes, transaction_routes
 
 app.include_router(token_routes.router)
 app.include_router(user_routes.router)
+app.include_router(account_routes.router)
+app.include_router(transaction_routes.router)
 
 
 @app.get("/")

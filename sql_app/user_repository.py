@@ -16,9 +16,18 @@ class UserRepository(BaseRepository):
         fake_hashed_password = user.password
         db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
 
+        """
+        TODO: make sure we run these two queries in a single database transaction.
+        """
+
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
+
+        db_user_account = models.Account(balance=0, user_id=db_user.id)
+        self.db.add(db_user_account)
+        self.db.commit()
+        self.db.refresh(db_user_account)
 
         return db_user
 

@@ -5,3 +5,5 @@ pydantic==1.7
 python-jose
 python-multipart
 starlette==0.13.6
+click==7.1.2
+attrs==20.2.0

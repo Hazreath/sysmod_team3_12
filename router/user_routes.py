@@ -3,8 +3,7 @@ from typing import List
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from business.models import user
-from business.models.user import User
+from business.models.user import User, UserCreate
 from middleware.get_current_user import get_current_active_user
 from sql_app.get_db import get_db
 from sql_app.user_repository import UserRepository
@@ -13,8 +12,8 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.post("/users/", response_model=user.User)
-def create_user(user: user.UserCreate, db: Session = Depends(get_db)):
+@router.post("/users/", response_model=User)
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 
     db_user = user_repository.get_by_email(user.email)
@@ -25,7 +24,7 @@ def create_user(user: user.UserCreate, db: Session = Depends(get_db)):
     return user_repository.create_user(user=user)
 
 
-@router.get("/users/", response_model=List[user.User])
+@router.get("/users/", response_model=List[User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 
@@ -34,7 +33,7 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return users
 
 
-@router.get("/users/{user_id}", response_model=user.User)
+@router.get("/users/{user_id}", response_model=User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     user_repository = UserRepository(db)
 

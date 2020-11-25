@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.types import Float, Integer, String
+from sqlalchemy.types import Float, Integer, String, Boolean
 
 from .database import Base
 
@@ -21,8 +21,6 @@ class Account(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    # name: str
-    # status: bool
     balance = Column(Float)
 
     # One To One relationship.
