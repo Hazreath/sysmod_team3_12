@@ -2,9 +2,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Zilla Slab", serif;
-  background: url(back1.jpg);
-  background-size: cover;
+  font-family: 'Zilla Slab', serif;
 }
 
 /*Only to class window*/
@@ -25,14 +23,14 @@ body {
 
 /*Only to h1 headind (login)*/
 .login h1 {
-  color: blanchedalmond;
+  color: black;
   text-transform: uppercase;
   font-weight: 800;
 }
 
 /*Only to inputs*/
-.login_input [type="name"],
-.login_input [type="password"] {
+.login_input [type='name'],
+.login_input [type='password'] {
   border: 0;
   background: none;
   display: block;
@@ -48,21 +46,21 @@ body {
 }
 
 /*Textfield and passwordfield get enlarged*/
-.login_input [type="name"]:focus,
-.login_input [type="password"]:focus {
+.login_input [type='name']:focus,
+.login_input [type='password']:focus {
   border-color: goldenrod;
   width: 270px;
 }
 
 /*Only to submit button*/
-.button input[type="submit"] {
+.button input[type='submit'] {
   border: 0;
   background: none;
   display: block;
   margin: 10px auto;
   border: 3px solid goldenrod;
   padding: 14px 35px;
-  color: seashell;
+  color: black;
   border-radius: 24px;
   text-align: center;
   transition: 0.2px;
@@ -70,10 +68,10 @@ body {
   outline: none;
 }
 
-.button input[type="submit"]:hover {
+.button input[type='submit']:hover {
   background: goldenrod;
 }
 
 .login_link {
-  font-family: "Zilla Slab", serif;
+  font-family: 'Zilla Slab', serif;
 }
