@@ -3,13 +3,13 @@ from sqlalchemy.orm import Session
 from . import models
 from business.models import user
 from .base_repository import BaseRepository
+from .models import User
 
 
 class UserRepository(BaseRepository):
 
     def __init__(self, db: Session):
         super().__init__(db, models.User)
-
 
     def create_user(self, user: user.UserCreate):
         # @todo: hash maybe?
@@ -31,6 +31,10 @@ class UserRepository(BaseRepository):
 
         return db_user
 
+    def delete_user(self, user: user.UserCreate):
+        self.db.delete(user)
+        self.db.commit()
+        # return self.db.query(self.model).delete(user)
 
 # def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
 #     db_item = models.Item(**item.dict(), owner_id=user_id)
