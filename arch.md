@@ -18,3 +18,13 @@ For the `JwtAuth` we also use a singleton to create the configuration and to inj
 
 
 Thanks to this, we ensure that through the whole system we have the **same** configuration for our Authentication system.
+
+### Repository
+We also use the [Repository](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) design pattern.
+
+### Decorator
+Take a look at our controllers. We use the Decorator pattern to bind our HTTP endpoints to our controllers.
+
+
+Important note: our whole system is totally independent from our API.
+Our RestAPI comes like a plugin to our system.
