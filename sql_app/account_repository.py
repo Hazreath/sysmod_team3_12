@@ -20,3 +20,8 @@ class AccountRepository(BaseRepository):
 
     def get_by_user_email(self, email: str) -> Account:
         return self.db.query(self.model).join(User).filter(User.email == email).first()
+
+    def enable_account(self,account,value):
+        acc = self.db.query().filter(self.model.id == account.id)
+        setattr(acc,'enabled', value)
+        return self.db.commit()

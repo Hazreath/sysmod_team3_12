@@ -18,7 +18,8 @@ def validate_transaction(source_account: Account, transaction: TransactionCreate
     # 3) Then creates the transaction
 
     if source_account.balance - transaction.amount < 0:
-        raise Exception('not enough money')
+        raise Exception('Not enough money')
+
 
 
 @router.get('/transaction', response_model=List[Transaction])
@@ -38,9 +39,29 @@ def create_transaction(transaction: TransactionCreateInput, current_user: User =
         detail="Transaction impossible",
         # headers={"WWW-Authenticate": "Bearer"},
     )
+    EXC_SAME_ACCOUNT = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Error : sender and destination is same account.",
+        # headers={"WWW-Authenticate": "Bearer"},
+    )
+    EXC_NOT_ENOUGH_MONEY = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Error : your balance is too low.",
+        # headers={"WWW-Authenticate": "Bearer"},
+    )
+    EXC_ACC_DISABLED = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Error : one or both of the accounts involved are disabled.",
+        # headers={"WWW-Authenticate": "Bearer"},
+    )
+    EXC_ACC_DONT_EXIST = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Error : destination account does not exists.",
+        # headers={"WWW-Authenticate": "Bearer"},
+    )
 
     if transaction.dest_account_email == current_user.email:
-        raise transaction_exception
+        raise EXC_SAME_ACCOUNT
 
 
     account_repository = AccountRepository(db)
@@ -52,12 +73,16 @@ def create_transaction(transaction: TransactionCreateInput, current_user: User =
     try:
         validate_transaction(source_account, transaction)
     except Exception:
-        raise transaction_exception
+        raise EXC_NOT_ENOUGH_MONEY
 
     # 2) check if "transaction.dest_account_email" exists -> get the account linked to it.
     dest_account = account_repository.get_by_user_email(transaction.dest_account_email)
     if dest_account is None:
-        raise transaction_exception
+        raise EXC_ACC_DONT_EXIST
+
+    # 3) check if both accounts are enabled
+    if not (source_account.enabled and dest_account.enabled):
+        raise EXC_ACC_DISABLED
 
     transaction = transaction_repository.create_transaction(transaction, source_account, dest_account)
 

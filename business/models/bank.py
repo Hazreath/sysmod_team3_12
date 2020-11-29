@@ -8,7 +8,7 @@ class Account(BaseModel):
     # name: str
     # status: bool
     balance: float
-
+    enabled: bool
     user: User
 
     class Config:

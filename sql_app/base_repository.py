@@ -14,3 +14,4 @@ class BaseRepository:
 
     def get_list(self, skip: int = 0, limit: int = 100):
         return self.db.query(self.model).offset(skip).limit(limit).all()
+

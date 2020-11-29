@@ -6,7 +6,7 @@ from sql_app import models
 from sql_app.account_repository import AccountRepository
 from sql_app.base_repository import BaseRepository
 from sql_app.database import SessionLocal
-from sql_app.models import Transaction, User
+from sql_app.models import Transaction, User, Account
 from sql_app.transaction_repository import TransactionRepository
 from sql_app.user_repository import UserRepository
 import re
@@ -16,6 +16,9 @@ db = SessionLocal()
 ERROR_EMAIL_ALREADY_IN_USE = -1
 ERROR_EMAIL_FORMAT_INCORRECT = -2
 ERROR_USER_DOES_NOT_EXIST = -3
+ERROR_ACCOUNT_DOES_NOT_EXIST = -4
+ERROR_NOT_ENOUGH_MONEY = -5
+ERROR_ACCOUNT_DISABLED = -5
 
 
 @click.group()
@@ -52,7 +55,6 @@ def create_user(email, password):
 
     click.echo("Created account " + email + " with pass " + password)
 
-
 @click.command(name="delete_user")
 @click.argument('id', type=int)
 def delete_user(id):
@@ -61,7 +63,7 @@ def delete_user(id):
        ex : python console.py delete_user 7
     """
     user_repo = UserRepository(db)
-    base_repo = BaseRepository(db,User)
+    base_repo = BaseRepository(db, User)
     u = base_repo.get_by_id(id)
     if not u:
         click.echo("User with specified id does not exists.")
@@ -71,16 +73,31 @@ def delete_user(id):
 
 
 @click.command(name='create_transaction')
-@click.argument('author', type=str)
-@click.argument('receiver', type=str)
-@click.argument('amount', type=str)  # will get from user as string but need to be an int
+@click.argument('author', type=int)
+@click.argument('receiver', type=int)
+@click.argument('amount', type=float)  # will get from user as string but need to be an int
 def create_transaction(author, receiver, amount):
     """
     Create transaction with arguments: author, receiver,amount.\n
     Example: python konsole.py create-trans author@mail.com receiver@mailcom 1234
     """
 
-    # _transaction = Transaction("def", author, receiver, amount)
+    account_repo = AccountRepository(db)
+    a = account_repo.get_by_id(author)
+    r = account_repo.get_by_id(receiver)
+    if a is None or r is None:
+        click.echo("One or both of the user don't exist.")
+        return ERROR_USER_DOES_NOT_EXIST
+    if a.balance < amount:
+        click.echo("Author does not have enough money (<" + str(amount) + ").")
+        return ERROR_NOT_ENOUGH_MONEY
+    if not (a.enabled and r.enabled):
+        click.echo("One or both of the accounts are disabled.")
+        return ERROR_ACCOUNT_DISABLED
+
+    trans_repo = TransactionRepository(db)
+    _transaction = Transaction(source_account=author, dest_account=receiver, amount=amount)
+    trans_repo.create_transaction(_transaction,a,r)
     click.echo(f"Transaction was created successfully.")
 
 
@@ -100,6 +117,26 @@ def undo_transaction(id):
 
     click.echo('transaction undo')
 
+
+@click.command(name='enable_account')
+@click.argument('id', type=int)
+@click.argument('value', type=bool)
+def enable_account(id, value):
+    """
+        Enable/disable the account designed by argument id, depending
+        of value.
+        ex : python console.py enable_account 3 False
+    """
+    account_repo = AccountRepository(db)
+    acc: Account = account_repo.get_by_id(id)
+    if acc is None:
+        click.echo("Account with specified ID does not exists.")
+        return ERROR_ACCOUNT_DOES_NOT_EXIST
+
+    acc.enabled = value
+    account_repo.enable_account(acc, value)
+    msg = "Account n°" + str(id) + " enabled is now " + str(value) + "."
+    click.echo(msg)
 
 @click.command(name='create_seed_transaction')
 @click.argument('receiver', type=int)
@@ -133,8 +170,10 @@ commands.add_command(create_transaction)
 commands.add_command(create_seed_transaction)
 commands.add_command(undo_transaction)
 commands.add_command(delete_user)
+commands.add_command(enable_account)
 
 if __name__ == "__main__":
     # undo_transaction()
     # create_seed_transaction()
     commands()
+

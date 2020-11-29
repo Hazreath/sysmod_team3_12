@@ -20,7 +20,7 @@ class Account(Base):
     __tablename__ = "account"
 
     id = Column(Integer, primary_key=True, index=True)
-
+    enabled = Column(Boolean)
     balance = Column(Float)
 
     # One To One relationship.

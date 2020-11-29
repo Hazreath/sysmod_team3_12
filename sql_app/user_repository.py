@@ -24,7 +24,7 @@ class UserRepository(BaseRepository):
         self.db.commit()
         self.db.refresh(db_user)
 
-        db_user_account = models.Account(balance=0, user_id=db_user.id)
+        db_user_account = models.Account(balance=0, user_id=db_user.id, enabled=True)
         self.db.add(db_user_account)
         self.db.commit()
         self.db.refresh(db_user_account)
