@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#den").click(function(){
+    $.post("http://localhost:8000/token/",
+    { 
+      grant_type: ""
+      username: "",
+      password: "",
+      scope: "",
+      client_id: "",
+      client_secret: ""
+    
+    },
+    function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+  $("#wer").click(function(){
+    $.post("http://localhost:8000/token/",
+    {
+      email: "",
+      password: ""
+    },
+    function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<input type="button" id="den" value="post token " />
+<input type="button" id="wer" value="post user" />
+</body>
+</html>
