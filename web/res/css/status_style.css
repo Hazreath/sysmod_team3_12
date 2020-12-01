@@ -1,0 +1,15 @@
+.status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.status > * {
+    flex-grow: 1;
+}
+
+.info {
+    display: block;
+}

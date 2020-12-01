@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login page</title>
+    <link rel="stylesheet" href="res/css/style.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+
+  <body>
+    <div class="logo">
+      <img src="res/images/stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+    </div>
+
+    <div class="login">
+      <form action="login.html" method="POST">
+        <h1>Login</h1>
+
+        <div class="login_input">
+          <span class="symbol"><i class="fa fa-user"></i></span>
+          <input type="name" placeholder="Username or email" id="username" >
+          <span class="symbol"><i class="fa fa-lock"></i></span>
+          <input type="password" placeholder="Password" id="password" >
+        </div>
+
+        <div class="button">
+<!--          <input id="login-button" type="submit" value="Login" onclick="login()" >-->
+            <input id="login-button" type="button" value="Login">
+        </div>
+
+        <a href="#" class="login_link"> Forgot your password?</a>
+      </form>
+    </div>
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/login.js"></script>
+  </body>
+</html>
