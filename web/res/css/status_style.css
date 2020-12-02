@@ -13,3 +13,8 @@
 .info {
     display: block;
 }
+
+.balance {
+    width:100%;
+    text-align: center;
+}

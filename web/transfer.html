@@ -1,78 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Account status page</title>
+    <link rel="stylesheet" href="res/css/transfer.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>New Transfer</title>
-  <link rel="stylesheet" href="transfer.css" />
-
-  <script type="text/javascript">
-    var name_temp = "User Name";
-  </script>
-</head>
-
-<body>
-  <div class="status">
-    <div class="logo">
-      <img src="stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+  <body>
+    <div class="status">
+        <div class="logo">
+            <img src="res/images/stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+        </div>
+        <div class="bank" style="text-align: center; padding-right: 100px;">
+            STONKS BANK
+        </div>
+        <div class="info" style="text-align: right;">
+            <div id="name" style="padding-right: 20px;">
+            </div>
+            
+            <div id="btn2">
+                <button id="btn_account">My account</button>
+            </div>
+        </div>
     </div>
-    <div class="bank" style="text-align: center; padding-right: 100px;">
-      STONKS BANK
+    
+    <form class="new-transfer">
+        <fieldset>
+            <legend>New Transfer</legend>
+            <input id="dest_account" placeholder="Destination account" />  
+            <input type='number' id="amount" placeholder="Amount" />  
+            <input type='submit' id="btn_submit_transfer" value="SEND MONEY" />
+        </fieldset>
+        
+    </form>
+    <div class="toast-container">
+        <div id="toast"></div>
+        <div id="error-toast"></div>
     </div>
-    <div class="info" style="text-align: right;">
-      <div id="name" style="padding-right: 20px;">
-        <script type="text/javascript">
-          document.write(name_temp)
-        </script>
-      </div>
-      <button type="submit" style="width: 98px;">My account</button>
-      <div id="btn2">
-        <button type="submit">Make transfer</button>
-      </div>
-    </div>
-  </div>
-
-
-
-  <div class="input">
-    <span style="position: relative; top: -25px; left: 20px; font-weight: bold;"> New transfer </span>
-    <div class="input1">
-      <span style=" padding: 10px;">Destination account</span>
-      <input type="text1">
-    </div>
-
-
-
-    <div class="input2">
-      <span style=" padding: 10px;">Amount </span>
-      <input type="text2">
-    </div>
-
-    <div class="button">
-      <button type="submit">Make transfer</button>
-    </div>
-
-  </div>
-
-
-
-
-  <div class="transfers">
-    <table style=" text-align: center; border-spacing: 5px;  position: absolute; top: 60%; left: 42%;  ">
-      <tr>
-        <th>Transfers</th>
-      </tr>
-      <tr>
-        <td>Transfer to Mary Baker: 500 eur</td>
-      </tr>
-      <tr>
-        <td>Transfer to Bob Smith: 888 eur</td>
-      </tr>
-      <tr>
-        <td>Transfer to Me: 20 eur</td>
-      </tr>
-    </table>
-  </div>
-</body>
-
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/stonks-lib.js"></script>
+    <script src="res/js/new-transfer.js"></script>
+  </body>
 </html>
