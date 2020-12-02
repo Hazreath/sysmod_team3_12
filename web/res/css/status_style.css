@@ -29,8 +29,13 @@
     justify-content: center;
 }
 
+#btn2 {
+    display: flex;
+    flex-direction: column;
+}
 /** POPUP */
 .modify-transfer-popup {
+    visibility: hidden;
     position:absolute;
     width:100%;
     top:50%;

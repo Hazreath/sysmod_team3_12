@@ -5,7 +5,7 @@
     <title>Account status page</title>
     <link rel="stylesheet" href="res/css/status_style.css" />
     <link rel="stylesheet" href="res/css/global.css" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript">
         var name_temp = "User Name";
       </script>
@@ -24,6 +24,7 @@
             </div>
             <div id="btn2">
                 <button id="btn_transfer">Make transfer</button>
+                <button id="btn_disconnect">Disconnect</button>
             </div>
         </div>
     </div>
@@ -58,7 +59,8 @@
                 <legend>Modify Transfert</legend>
                 <input id="dest_account" placeholder="Destination account" readonly/>  
                 <input type='number' id="amount" placeholder="Amount" />  
-                <input type='submit' id="btn_submit_transfer" value="MODIFY TRANSACTION" />
+                <input type='button' id="btn_submit_transfer" value="MODIFY TRANSACTION" />
+                <input type='button' id="btn_cancel_transfer" value="CANCEL" />
             </fieldset>
         </div>
     </form>  

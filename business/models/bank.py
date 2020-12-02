@@ -21,7 +21,7 @@ class TransactionBase(BaseModel):
 class TransactionCreateInput(TransactionBase):
     dest_account_email: str
 
-class TransactionModifyInput(TransactionBase):
+class TransactionModifyInput(TransactionCreateInput):
     id: int
 class Transaction(TransactionBase):
     id: int

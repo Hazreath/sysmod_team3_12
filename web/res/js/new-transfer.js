@@ -8,11 +8,14 @@ $(document).ready(function() {
     // TODO REMOVE TEST
     let d = document.getElementById("dest_account")
     let a = document.getElementById("amount")
-    d.value = 'a@b.fr'
-    a.value = '6'
+    d.value = 'gimme@money.fr'
+    a.value = '1'
     
     $('#btn_account').click(function(e){
         window.location.replace("status.html");
+    })
+    $("#btn_disconnect").click(function(e) {
+        window.location.replace("login.html");
     })
     // Submit new transfer
     $("#btn_submit_transfer").click(function (e) {

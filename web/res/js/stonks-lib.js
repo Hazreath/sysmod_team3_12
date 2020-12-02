@@ -134,7 +134,7 @@ function addNewTransaction(dest, amount) {
         error: function(data) {
             errorToast(data.responseJSON.detail)
             
-            if (data.responseJSON == "Invalid credentials") {
+            if (data.responseJSON == "Could not validate credentials") {
                 // Token has expired
                 window.location.replace("login.html");
             }
@@ -158,7 +158,7 @@ function modifyTransaction(id, dest, amount) {
         },
         data: JSON.stringify({
             'amount':amount.toString(),
-            
+            'dest_account_email':dest,
             'id':id
         }),
         success: function(json) {
@@ -168,7 +168,7 @@ function modifyTransaction(id, dest, amount) {
         error: function(data) {
             errorToast(data.responseJSON.detail)
             console.log(data)
-            if (data.responseJSON == "Invalid credentials") {
+            if (data.responseJSON == "Could not validate credentials") {
                 // Token has expired
                 window.location.replace("login.html");
             }
@@ -193,13 +193,18 @@ function displayTransactions(tr_list,list) {
             cellSettings.innerHTML = 
                 "<a class='modify' id='"+ t.id + "'>" +
                 "<img src='res/images/settings.png'></img></a>"
-            +   "<a class='delete' id='"+ t.id + "'>" +
-                "<img src='res/images/delete.png'></img></a>"
-        
-        cellSettings.getElementsByClassName("modify")[0].addEventListener('click',function(it) {
-            console.log(t.id)
-            displayModifyPopup(t.id, t.dest_account.user.email, t.amount)
-        })
+//            +   "<a class='delete' id='"+ t.id + "'>" +
+//                "<img src='res/images/delete.png'></img></a>"
+            // Modify
+            cellSettings.getElementsByClassName("modify")[0].addEventListener('click',function(it) {
+                console.log(t.id)
+                displayModifyPopup(t.id, t.dest_account.user.email, t.amount)
+            })
+            // Delete is not a feature
+//            cellSettings.getElementsByClassName("delete")[0].addEventListener('click',function(it) {
+//                console.log(t.id)
+//                displayModalUndo(t.id, t.dest_account.user.email, t.amount)
+//            })
         } else {
             html += " from " + t.source_account.user.email
         }

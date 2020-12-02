@@ -1,3 +1,8 @@
+.status {
+    margin-bottom: 20px;
+    padding:10px;
+    border-bottom: 1px dotted black;
+}
 /**** TOAST *******/
 .toast-container {
     display:flex;
