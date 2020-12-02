@@ -18,3 +18,45 @@
     width:100%;
     text-align: center;
 }
+
+.modify > img, .delete > img {
+    width:16px;
+    height:16px;
+}
+
+.transfers {
+    display:flex;
+    justify-content: center;
+}
+
+/** POPUP */
+.modify-transfer-popup {
+    position:absolute;
+    width:100%;
+    top:50%;
+    text-align: center;
+    z-index: 1;
+    
+}
+.modify-transfer {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.modify-transfer > fieldset {
+    display:flex;
+    flex-direction : column;
+    padding:30px;
+    background: white;
+}
+
+.modify-transfer > fieldset > input {
+    padding:5px;
+    margin-bottom:5px;
+    min-width:200px;
+}
+
+#btn_submit_transfer {
+    margin-top:10px;
+}

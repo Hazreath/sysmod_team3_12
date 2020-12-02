@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Account status page</title>
     <link rel="stylesheet" href="res/css/status_style.css" />
+    <link rel="stylesheet" href="res/css/global.css" />
 
     <script type="text/javascript">
         var name_temp = "User Name";
@@ -30,7 +31,7 @@
          
     </div>
     <div class="transfers">
-        <table id="transferts" style="width:100%; text-align: center; border-spacing: 5px; padding-top: 20px;">
+        <table id="transferts" style="border-spacing: 5px; padding-top: 20px;">
             <tr>
               <th>Transfers</th>
             </tr>
@@ -46,6 +47,21 @@
               </tr>
 -->
           </table>
+    </div>
+    <div class="toast-container">
+        <div id="toast"></div>
+        <div id="error-toast"></div>
+    </div>
+    <div class="modify-transfer-popup" id="modify-popup">
+        <div class="modify-transfer">
+            <fieldset>
+                <legend>Modify Transfert</legend>
+                <input id="dest_account" placeholder="Destination account" readonly/>  
+                <input type='number' id="amount" placeholder="Amount" />  
+                <input type='submit' id="btn_submit_transfer" value="MODIFY TRANSACTION" />
+            </fieldset>
+        </div>
+    </form>  
     </div>
     <script src="res/js/jquery.min.js"></script>
     <script src="res/js/stonks-lib.js"></script>
