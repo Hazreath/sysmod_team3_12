@@ -9,8 +9,6 @@ const URL_API_DELETE_TRANSACTIONS = ROOT + "/transaction/delete"
 // Other params
 const CURRENCY = " €"
 
-// model is incomplete but we do not have time
-var has_been_modified = []
 function login(username, password) {
     $.ajax({
         url : URL_API_TOKEN,
@@ -147,7 +145,6 @@ function addNewTransaction(dest, amount) {
 }
 function modifyTransaction(id, dest, amount) {
     var token = localStorage.getItem("token")
-    has_been_modified.push(id)
     // references
     $.ajax({
         url : URL_API_MODIFY_TRANSACTIONS,
@@ -182,8 +179,7 @@ function modifyTransaction(id, dest, amount) {
 }
 function undoTransaction(id, dest, amount) {
     var token = localStorage.getItem("token")
-    has_been_modified.push(id)
-    console.log(id + " " + dest + " " + amount)
+    modified_transactions += id + ";"
     $.ajax({
         url : URL_API_DELETE_TRANSACTIONS,
         type:"POST",
@@ -228,7 +224,7 @@ function displayTransactions(tr_list,list) {
         if (t.source_account.id == my_id) {
             html += " to " + t.dest_account.user.email
             
-            if (has_been_modified.find(t.id) != undefined) {
+            if (true/*!t.modified*/) { // TODO
                 // Add modify and delete to MY transactions
                 let cellSettings = row.insertCell(1)
                 cellSettings.innerHTML = 
@@ -270,6 +266,7 @@ function isValidEmail(email) {
     format = /.+@.+\.\D{1,3}/
     return format.test(email)
 }
+
 // Toasts display
 function errorToast(text) {
   // Get the snackbar DIV
