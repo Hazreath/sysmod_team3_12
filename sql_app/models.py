@@ -33,9 +33,10 @@ class Transaction(Base):
     __tablename__ = "transaction"
 
     id = Column(Integer, primary_key=True, index=True)
-
+    modified = Column(Boolean)
     source_account_id = Column(Integer, ForeignKey('account.id'))
     dest_account_id = Column(Integer, ForeignKey('account.id'))
+
 
     # https://docs.sqlalchemy.org/en/14/orm/join_conditions.html
     source_account = relationship("Account", foreign_keys=[source_account_id])

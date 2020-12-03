@@ -179,7 +179,6 @@ function modifyTransaction(id, dest, amount) {
 }
 function undoTransaction(id, dest, amount) {
     var token = localStorage.getItem("token")
-    modified_transactions += id + ";"
     $.ajax({
         url : URL_API_DELETE_TRANSACTIONS,
         type:"POST",
@@ -223,8 +222,8 @@ function displayTransactions(tr_list,list) {
         html = "Transfer"
         if (t.source_account.id == my_id) {
             html += " to " + t.dest_account.user.email
-            
-            if (true/*!t.modified*/) { // TODO
+            console.log("modified ? " + t.modified.toString())
+            if (!t.modified) { // TODO
                 // Add modify and delete to MY transactions
                 let cellSettings = row.insertCell(1)
                 cellSettings.innerHTML = 

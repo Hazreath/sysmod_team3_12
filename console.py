@@ -163,6 +163,10 @@ def create_seed_transaction(receiver, amount):
     print(transaction)
     click.echo(f'Transaction created {account} {account.balance}')
 
+@click.command(name='test')
+@click.argument('t_id', type=int)
+def test_command(name):
+    pass
 
 # Adding commands
 commands.add_command(create_user)

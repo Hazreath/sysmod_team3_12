@@ -120,6 +120,8 @@ def modify_transaction(transaction: TransactionModifyInput, current_user: User =
     # Undo previous transaction
     undo = transaction_repository.undo_transaction_by_id(transaction.id)
 
+    # the transaction has been modified
+    m = transaction_repository.has_been_modified(t.id)
     # Change amount
     # t.amount = transaction.amount
     transaction = transaction_repository.create_transaction(transaction, source_account, dest_account)
@@ -152,4 +154,6 @@ def delete_transaction(transaction: TransactionModifyInput, current_user: User =
     # Delete/Undo previous transaction
     undo = transaction_repository.undo_transaction_by_id(transaction.id)
 
+    # the transaction has been modified
+    m = transaction_repository.has_been_modified(t.id)
     return undo

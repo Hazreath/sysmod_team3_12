@@ -1,7 +1,12 @@
+body {
+    overflow-x: hidden;
+}
 .status {
     margin-bottom: 20px;
-    padding:10px;
+    padding-top:10px;
+    padding-bottom:10px;
     border-bottom: 1px dotted black;
+
 }
 /**** TOAST *******/
 .toast-container {

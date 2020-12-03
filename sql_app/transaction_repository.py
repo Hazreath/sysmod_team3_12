@@ -22,7 +22,8 @@ class TransactionRepository(BaseRepository):
 
 
     def create_transaction(self, transaction: TransactionCreateInput, source_account: Account, dest_account: Account):
-        db_transaction = models.Transaction(source_account_id=source_account.id, dest_account_id=dest_account.id, amount=transaction.amount)
+        db_transaction = models.Transaction(source_account_id=source_account.id, dest_account_id=dest_account.id,
+                                            amount=transaction.amount,modified=False)
 
         source_account.balance = source_account.balance - transaction.amount
         dest_account.balance = dest_account.balance + transaction.amount
@@ -56,3 +57,12 @@ class TransactionRepository(BaseRepository):
         self.db.refresh(dest_account)
 
         return dest_account
+
+    def has_been_modified(self,t_id):
+        t = self.db.query(self.model).filter(self.model.id == t_id).first()
+        #t = self.db.query(Transaction).get(id)
+        # setattr(t,'modified', True)
+        t.modified = True
+        print("my id ",t_id)
+        #print("Result : ",t)
+        return self.db.commit()

@@ -29,5 +29,6 @@ class Transaction(TransactionBase):
     source_account: Account
     dest_account: Account
 
+    modified: bool
     class Config:
         orm_mode = True

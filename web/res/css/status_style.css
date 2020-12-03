@@ -27,6 +27,7 @@
 .transfers {
     display:flex;
     justify-content: center;
+    text-align: center;
 }
 
 #btn2 {
@@ -37,7 +38,7 @@
 .modify-transfer-popup {
     visibility: hidden;
     position:absolute;
-    width:100%;
+    width:97%;
     top:50%;
     text-align: center;
     z-index: 1;
