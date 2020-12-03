@@ -124,4 +124,32 @@ def modify_transaction(transaction: TransactionModifyInput, current_user: User =
     # t.amount = transaction.amount
     transaction = transaction_repository.create_transaction(transaction, source_account, dest_account)
 
+    return transaction
+
+@router.post('/transaction/delete', response_model=Transaction)
+def delete_transaction(transaction: TransactionModifyInput, current_user: User = Depends(get_current_active_user),
+                       db: Session = Depends(get_db)):
+    transaction_repository = TransactionRepository(db)
+    account_repository = AccountRepository(db)
+    t = transaction_repository.get_by_id(transaction.id)
+    source_account = account_repository.get_by_user_id(current_user.id)
+
+    # 1) check if the User account balance has enough money
+    try:
+        validate_transaction(source_account, t)
+    except Exception:
+        raise EXC_NOT_ENOUGH_MONEY
+
+    # 2) check if "transaction.dest_account_email" exists -> get the account linked to it.
+    dest_account = account_repository.get_by_user_email(transaction.dest_account_email)
+    if dest_account is None:
+        raise EXC_ACC_DONT_EXIST
+
+    # 3) check if both accounts are enabled
+    if not (source_account.enabled and dest_account.enabled):
+        raise EXC_ACC_DISABLED
+
+    # Delete/Undo previous transaction
+    undo = transaction_repository.undo_transaction_by_id(transaction.id)
+
     return undo

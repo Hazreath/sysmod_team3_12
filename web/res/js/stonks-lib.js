@@ -5,9 +5,12 @@ const URL_API_ME = ROOT + "/users/me/"
 const URL_API_MY_ACCOUNT = ROOT + "/account"
 const URL_API_USER_TRANSACTIONS = ROOT + "/transaction"
 const URL_API_MODIFY_TRANSACTIONS = ROOT + "/transaction/modify"
+const URL_API_DELETE_TRANSACTIONS = ROOT + "/transaction/delete"
 // Other params
 const CURRENCY = " €"
 
+// model is incomplete but we do not have time
+var has_been_modified = []
 function login(username, password) {
     $.ajax({
         url : URL_API_TOKEN,
@@ -144,9 +147,45 @@ function addNewTransaction(dest, amount) {
 }
 function modifyTransaction(id, dest, amount) {
     var token = localStorage.getItem("token")
-    console.log(id + " " + dest + " " + amount)
+    has_been_modified.push(id)
+    // references
     $.ajax({
         url : URL_API_MODIFY_TRANSACTIONS,
+        type:"POST",
+        crossDomain: true,
+        headers: {  
+            'Access-Control-Allow-Origin': 'x-requested-with',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
+            
+        },
+        data: JSON.stringify({
+            'amount':amount.toString(),
+            'dest_account_email':dest,
+            'id':id
+        }),
+        success: function(json) {
+            toast("Transaction successful !")
+            
+        },
+        error: function(data) {
+            errorToast(data.responseJSON.detail)
+            console.log(data)
+            if (data.responseJSON == "Could not validate credentials") {
+                // Token has expired
+                window.location.replace("login.html");
+            }
+        }
+        
+    })
+}
+function undoTransaction(id, dest, amount) {
+    var token = localStorage.getItem("token")
+    has_been_modified.push(id)
+    console.log(id + " " + dest + " " + amount)
+    $.ajax({
+        url : URL_API_DELETE_TRANSACTIONS,
         type:"POST",
         crossDomain: true,
         headers: {  
@@ -181,30 +220,34 @@ function displayTransactions(tr_list,list) {
     var my_id = localStorage.getItem("id")
     var html = ""
     let index = 1
-    list.forEach(function(t) {
-        
+    // Display newer transaction first
+    list.reverse().forEach(function(t) {
         let row = tr_list.insertRow(index)
         let cell = row.insertCell(0)
         html = "Transfer"
         if (t.source_account.id == my_id) {
             html += " to " + t.dest_account.user.email
-            // Add modify and delete to MY transaction
-            let cellSettings = row.insertCell(1)
-            cellSettings.innerHTML = 
-                "<a class='modify' id='"+ t.id + "'>" +
-                "<img src='res/images/settings.png'></img></a>"
-//            +   "<a class='delete' id='"+ t.id + "'>" +
-//                "<img src='res/images/delete.png'></img></a>"
-            // Modify
-            cellSettings.getElementsByClassName("modify")[0].addEventListener('click',function(it) {
-                console.log(t.id)
-                displayModifyPopup(t.id, t.dest_account.user.email, t.amount)
-            })
-            // Delete is not a feature
-//            cellSettings.getElementsByClassName("delete")[0].addEventListener('click',function(it) {
-//                console.log(t.id)
-//                displayModalUndo(t.id, t.dest_account.user.email, t.amount)
-//            })
+            
+            if (has_been_modified.find(t.id) != undefined) {
+                // Add modify and delete to MY transactions
+                let cellSettings = row.insertCell(1)
+                cellSettings.innerHTML = 
+                    "<a class='modify' id='"+ t.id + "'>" +
+                    "<img src='res/images/settings.png'></img></a>"
+                +   "<a class='delete' id='"+ t.id + "'>" +
+                    "<img src='res/images/delete.png'></img></a>"
+                // Modify
+                cellSettings.getElementsByClassName("modify")[0].addEventListener('click',function(it) {
+                    console.log(t.id)
+                    displayModifyPopup(t.id, t.dest_account.user.email, t.amount)
+                })
+                // Delete
+                cellSettings.getElementsByClassName("delete")[0].addEventListener('click',function(it) {
+                    console.log(t.id)
+                    displayModalUndo(t.id, t.dest_account.user.email, t.amount)
+                })
+            }
+            
         } else {
             html += " from " + t.source_account.user.email
         }
