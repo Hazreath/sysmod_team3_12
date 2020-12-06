@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Account status page</title>
+    <link rel="stylesheet" href="status_style.css" />
+
+    <script type="text/javascript">
+        var name_temp = "User Name";
+      </script>
+  </head>
+
+  <body>
+    <div class="status">
+        <div class="logo">
+            <img src="stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+        </div>
+        <div class="bank" style="text-align: center; padding-right: 100px;">
+            STONKS BANK
+        </div>
+        <div class="info" style="text-align: right;">
+            <div id="name" style="padding-right: 20px;">
+                <script type="text/javascript">
+                    document.write(name_temp)
+                </script>
+            </div>
+            <button type="submit" style="width: 98px;">My account</button>
+            <div id="btn2">
+                <button type="submit">Make transfer</button>
+            </div>
+        </div>
+    </div>
+    <div class="transfers">
+        <table style="width:100%; text-align: center; border-spacing: 5px; padding-top: 20px;">
+            <tr>
+              <th>Transfers</th>
+            </tr>
+            <tr>
+              <td>Transfer to Mary Baker: 500 eur</td>
+            </tr>
+            <tr>
+              <td>Transfer to Bob Smith: 888 eur</td>
+            </tr>
+            <tr>
+                <td>Transfer to Me: 20 eur</td>
+              </tr>
+          </table>
+    </div>
+  </body>
+</html>

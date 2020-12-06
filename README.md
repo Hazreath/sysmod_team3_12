@@ -27,8 +27,3 @@ Logging system :
 - Log any transactions / operations
 
 
-Yauheni : no frontend,
-	  prefer architecture and business logic,
-	  prefers core
-AlexS : doesn't program
-Karina : doesn't know python
