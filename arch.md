@@ -20,7 +20,7 @@ For the `JwtAuth` we also use a **singleton** to create the configuration and to
 Thanks to this, we ensure that through the whole system we have the **same** configuration for our Authentication system.
 
 ### Repository
-We also use the [Repository](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) design pattern.
+We also use the [Repository](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) design pattern, to keep our communication with database organized, and for easier maintainance and scalability.  
 
 ### Decorator
 Take a look at our controllers. We use the **Decorator**con pattern to bind our HTTP endpoints to our controllers.
