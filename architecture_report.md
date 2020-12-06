@@ -1,7 +1,7 @@
 # Group 3_12 : Architecture Report
 
 ## USE MANUAL AND HOW TO SETUP
-You can find all the setup instructions in [this file](artifacts/doc.md) (it is a small setup).
+You can find all the setup instructions in [this file](doc.md) (it is a small setup).
 You have to run the webserver (```localhost:8000```) and then go to login.html 
 (in the /web folder).  
 To be able to use all features, you have to create at least two accounts
