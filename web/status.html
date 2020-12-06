@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Account status page</title>
+    <link rel="stylesheet" href="res/css/status_style.css" />
+    <link rel="stylesheet" href="res/css/global.css" />
+      <link rel="icon" href="res/images/favicon.ico" type="image/gif" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        var name_temp = "User Name";
+      </script>
+  </head>
+
+  <body>
+    <div class="status">
+        <div class="logo">
+            <img src="res/images/stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+        </div>
+        <div class="bank" style="text-align: center; padding-right: 100px;">
+            STONKS BANK
+        </div>
+        <div class="info" style="text-align: right;">
+            <div id="name" style="padding-right: 20px;">
+            </div>
+            <div id="btn2">
+                <button id="btn_transfer">Make transfer</button>
+                <button id="btn_disconnect">Disconnect</button>
+            </div>
+        </div>
+    </div>
+    <div class="balance" id="balance">
+         
+    </div>
+    <div class="transfers">
+        <table id="transferts" style="border-spacing: 5px; padding-top: 20px;">
+            <tr>
+              <th>Transfers</th>
+            </tr>
+<!--
+            <tr>
+              <td>Transfer to Mary Baker: 500 eur</td>
+            </tr>
+            <tr>
+              <td>Transfer to Bob Smith: 888 eur</td>
+            </tr>
+            <tr>
+                <td>Transfer to Me: 20 eur</td>
+              </tr>
+-->
+          </table>
+    </div>
+    <div class="toast-container">
+        <div id="toast"></div>
+        <div id="error-toast"></div>
+    </div>
+    <div class="modify-transfer-popup" id="modify-popup">
+        <div class="modify-transfer">
+            <fieldset>
+                <legend>Modify Transfert</legend>
+                <input id="dest_account" placeholder="Destination account" readonly/>  
+                <input type='number' id="amount" placeholder="Amount" />  
+                <input type='button' id="btn_submit_transfer" value="MODIFY TRANSACTION" />
+                <input type='button' id="btn_cancel_transfer" value="CANCEL" />
+            </fieldset>
+        </div>
+    </form>  
+    </div>
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/stonks-lib.js"></script>
+    <script src="res/js/status.js"></script>
+  </body>
+</html>

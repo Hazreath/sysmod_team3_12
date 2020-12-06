@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>My Account</title>
+    <link rel="stylesheet" href="res/css/transfer.css" />
+    <link rel="stylesheet" href="res/css/global.css" />
+      <link rel="icon" href="res/images/favicon.ico" type="image/gif" sizes="16x16" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div class="status">
+        <div class="logo">
+            <img src="res/images/stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+        </div>
+        <div class="bank" style="text-align: center; padding-right: 100px;">
+            STONKS BANK
+        </div>
+        <div class="info" style="text-align: right;">
+            <div id="name" style="padding-right: 20px;">
+            </div>
+            
+            <div id="btn2">
+                <button id="btn_account">My account</button>
+                <button id="btn_disconnect">Disconnect</button>
+            </div>
+        </div>
+    </div>
+    
+    <form class="new-transfer">
+        <fieldset>
+            <legend>New Transfer</legend>
+            <input id="dest_account" placeholder="Destination account" />  
+            <input type='number' id="amount" placeholder="Amount" />  
+            <input type='submit' id="btn_submit_transfer" value="SEND MONEY" />
+        </fieldset>
+        
+    </form>
+    <div class="toast-container">
+        <div id="toast"></div>
+        <div id="error-toast"></div>
+    </div>
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/stonks-lib.js"></script>
+    <script src="res/js/new-transfer.js"></script>
+  </body>
+</html>

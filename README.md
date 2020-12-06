@@ -1,6 +1,11 @@
 # sysmod_team3_12
 Bank application for sysmod Tartu 2020
 
+## Run
+```
+uvicorn main:app --reload
+```
+
 # FEATURES
 UI : 
 - WEB/Mobile user UI

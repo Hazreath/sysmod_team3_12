@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" and dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login page</title>
+    <link rel="stylesheet" href="res/css/login.css" />
+    <link rel="stylesheet" href="res/css/global.css" />
+      <link rel="icon" href="res/images/favicon.ico" type="image/gif" sizes="16x16" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+
+  <body>
+    <div class="logo">
+      <img src="res/images/stonks.png" alt="Bank logo" style="width:200px;height:100px;">
+    </div>
+
+    <div class="login">
+      <form action="login.html" method="POST">
+        <h1>Login</h1>
+
+        <div class="login_input">
+          <span class="symbol"><i class="fa fa-user"></i></span>
+          <input type="name" placeholder="Username or email" id="username" >
+          <span class="symbol"><i class="fa fa-lock"></i></span>
+          <input type="password" placeholder="Password" id="password" >
+        </div>
+
+        <div class="button">
+<!--          <input id="login-button" type="submit" value="Login" onclick="login()" >-->
+            <input id="login-button" type="button" value="LOGIN">
+        </div>
+
+<!--        <a href="#" class="login_link"> Forgot your password?</a>-->
+      </form>
+    </div>
+    <div class="toast-container">
+        <div id="toast"></div>
+        <div id="error-toast"></div>
+    </div>
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/stonks-lib.js"></script>
+    <script src="res/js/login.js"></script>
+  </body>
+</html>
