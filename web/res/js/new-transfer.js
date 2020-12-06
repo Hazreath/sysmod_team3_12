@@ -6,10 +6,10 @@ $(document).ready(function() {
     
     uname.innerHTML = localStorage.getItem("email")
     // TODO REMOVE TEST
-    let d = document.getElementById("dest_account")
-    let a = document.getElementById("amount")
-    d.value = 'gimme@money.fr'
-    a.value = '1'
+//    let d = document.getElementById("dest_account")
+//    let a = document.getElementById("amount")
+//    d.value = 'gimme@money.fr'
+//    a.value = '1'
     
     $('#btn_account').click(function(e){
         window.location.replace("status.html");

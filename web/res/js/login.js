@@ -2,8 +2,8 @@ $(document).ready(function() {
     console.log("ready")
     
     // TODO REMOVE ONLY FOR TEST
-    document.getElementById("username").value = "a@b.fr"
-    document.getElementById("password").value = "zzz"
+//    document.getElementById("username").value = "a@b.fr"
+//    document.getElementById("password").value = "zzz"
     
     $("#login-button").click(function (e) {
           e.preventDefault();
