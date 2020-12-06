@@ -173,7 +173,7 @@ commands.add_command(create_user)
 commands.add_command(create_transaction)
 commands.add_command(create_seed_transaction)
 commands.add_command(undo_transaction)
-commands.add_command(delete_user)
+#commands.add_command(delete_user) TEST FEATURE
 commands.add_command(enable_account)
 
 if __name__ == "__main__":
